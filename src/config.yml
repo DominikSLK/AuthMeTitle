@@ -1,0 +1,23 @@
+Titles:
+  # Delay before sending uregister or login titles
+  # Recommended more than 20 ticks, because AuthMe takes some time to verify the player's session
+  Delay_In_Ticks: 20
+  # All titles moved into separated config files
+Hide_Players:
+  Enabled: true
+  # Show all player to players who are logged in
+  Show_Players:
+    Enabled: true
+    Delay_In_Ticks: 5
+Tp_To_Spawn:
+  Enabled: false
+  # Move the player to the center of the block, like 'XYZ: -24.500 / 60.000 / 13.500'
+  To_Center: true
+  # Name of the world
+  World: 'world'
+  Yaw: 0
+  Pitch: 0
+Show_Timeout_In_Experience:
+  Enabled: true
+  # Do you need to save the previous data about the experience of the players to restore this after authorization?
+  Save_Previous_Data: true
