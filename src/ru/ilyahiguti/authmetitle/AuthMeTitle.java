@@ -33,6 +33,8 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
     private Collection<Player> unloggedVanishPlayers; /* Контейнер для логики скрытия игроков */
     private Map<String, ATitleManager> repeatingTasks = new HashMap<>();
 
+    // TODO: Заоптимизировать это гавно
+
     @Override
     public void onEnable() {
         if (!setupNMS()) {
@@ -44,7 +46,6 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
 
         PluginManager pm = Bukkit.getPluginManager();
 
-        copyConfigFiles();
         loadTitleConfigs();
         checkCollector(true);
 
@@ -61,24 +62,21 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
     }
 
     /**
-     * Создает NMS для плагина.
+     * Инициализирует объект NMS для плагина.
      *
      * @return {@code true} если ядро сервера поддерживается плагином.
      */
     private boolean setupNMS() {
         try {
-            final Class<?> clazz = Class.forName("ru.ilyahiguti.authmetitle.nms." + getServer().getClass().getPackage().getName().substring(23));
-            nms = (NMS) clazz.getConstructor().newInstance();
+            nms = (NMS) Class.forName("ru.ilyahiguti.authmetitle.nms." + getServer().getClass().getPackage().getName().substring(23)).getConstructor().newInstance();
         } catch (Exception ignored) {
             return false;
         }
         return true;
     }
 
-    /**
-     * Копирует конфигурационные файлы, если таковых не найдено в папке плагина.
-     */
-    private void copyConfigFiles() {
+    private void loadTitleConfigs() {
+        // Копируем дефолтные конфигурационные файлы, если таковых не найдено в папке плагина
         if (!new File(getDataFolder(), "config.yml").exists()) {
             saveResource("config.yml", false);
         }
@@ -91,9 +89,7 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
         if (!new File(getDataFolder(), "title_auth.yml").exists()) {
             saveResource("title_auth.yml", false);
         }
-    }
-
-    private void loadTitleConfigs() {
+        // Подгружаем конфиги тайтлов
         title_unregister = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "title_unregister.yml"));
         title_login = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "title_login.yml"));
         title_auth = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "title_auth.yml"));
@@ -222,7 +218,6 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof ConsoleCommandSender) {
-            copyConfigFiles();
             reloadConfig();
             loadTitleConfigs();
             checkCollector(false);
