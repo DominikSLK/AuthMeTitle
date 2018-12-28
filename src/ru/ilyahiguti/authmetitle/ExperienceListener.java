@@ -50,24 +50,16 @@ public class ExperienceListener implements Listener {
 
     @EventHandler
     public void onAuth(LoginEvent event) {
-        Player player = event.getPlayer();
-        taskMap.get(player).cancel();
-        if (expMap != null) {
-            PlayerExp playerExp = expMap.get(player);
-            if (playerExp != null) {
-                playerExp.getBack();
-                expMap.remove(player);
-            }
-        } else {
-            player.setLevel(0);
-            player.setExp(0);
-        }
+        restoreExp(event.getPlayer());
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        taskMap.get(player).cancel();
+        restoreExp(event.getPlayer());
+    }
+
+    private void restoreExp(Player player) {
+        taskMap.remove(player).cancel();
         if (expMap != null) {
             PlayerExp playerExp = expMap.get(player);
             if (playerExp != null) {

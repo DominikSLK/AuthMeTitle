@@ -38,7 +38,12 @@ class TitleManagerRepeatingTask extends ATitleManager {
         String[] parts = list.get(timer).split(" :: ");
 
         int speed = Integer.parseInt(parts[5]);
-        nms.sendTitle(player, ChatColor.translateAlternateColorCodes('&', parts[0]), ChatColor.translateAlternateColorCodes('&', parts[1]), Integer.parseInt(parts[2]), Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
+        nms.sendTitle(player,
+                ChatColor.translateAlternateColorCodes('&', parts[0]),
+                ChatColor.translateAlternateColorCodes('&', parts[1]),
+                Integer.parseInt(parts[2]),
+                Integer.parseInt(parts[3]),
+                Integer.parseInt(parts[4]));
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             timer++;
             execute();
