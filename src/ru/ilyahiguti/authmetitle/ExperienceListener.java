@@ -59,7 +59,10 @@ public class ExperienceListener implements Listener {
     }
 
     private void restoreExp(Player player) {
-        taskMap.remove(player).cancel();
+        BukkitTask task = taskMap.remove(player);
+        if (task != null) {
+            task.cancel();
+        }
         if (expMap != null) {
             PlayerExp playerExp = expMap.get(player);
             if (playerExp != null) {
