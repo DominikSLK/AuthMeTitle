@@ -21,3 +21,9 @@ Show_Timeout_In_Experience:
   Enabled: true
   # Do you need to save the previous data about the experience of the players to restore this after authorization?
   Save_Previous_Data: true
+Kick_On_Logout_Or_Unregister:
+  Enabled: false
+  Message: '§cYou have successfully logged out.'
+# Gives invisibility effect to unlogged players
+Invisibility:
+  Enabled: true

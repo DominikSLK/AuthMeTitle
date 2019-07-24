@@ -13,10 +13,5 @@ public interface NMS {
      * @param stay     длительность отображения
      * @param fadeOut  длительность исчезания
      */
-    void sendTitle(Player player,
-                   String title,
-                   String subtitle,
-                   int fadeIn,
-                   int stay,
-                   int fadeOut);
+    void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut);
 }

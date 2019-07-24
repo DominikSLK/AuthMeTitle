@@ -1,7 +1,7 @@
 Title:
-# This title is called every time a player logs in or his session continues
-# Each line is divided into parts using " :: ". If you want to use these characters inside your titles, use " :\: "
-# If you do not want to send any title or subtitle, just write 'null'
+  # This title is called every time a player logs in or his session continues
+  # Each line is divided into parts using " :: ". If you want to use these characters inside your titles, use " :\: "
+  # If you do not want to send any title or subtitle, just write 'null'
 
-# "Title :: Subtitle :: fadeIn :: stay :: fadeOut :: Delay_Before_Sending_Next"
-- ' ::  :: 20 :: 60 :: 20 :: 0'
+  # "Title :: Subtitle :: fadeIn :: stay :: fadeOut :: Delay_Before_Sending_Next"
+  - ' ::  :: 20 :: 60 :: 20 :: 0'
