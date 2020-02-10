@@ -27,3 +27,7 @@ Kick_On_Logout_Or_Unregister:
 # Gives invisibility effect to unlogged players
 Invisibility:
   Enabled: true
+# Allows players to login or register by entering password directly in the chat without any commands
+# To avoid bugs, set to "true" the parameter "settings.restrictions.allowChat" in the AuthMe config.yml
+Chat_Auth:
+  Enabled: false

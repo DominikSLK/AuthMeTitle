@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExperienceListener implements Listener {
-    private AuthMeTitle plugin;
+    private final AuthMeTitle plugin;
     private final int timeout;
     private final boolean getBackExp;
     private final float[] expCache;

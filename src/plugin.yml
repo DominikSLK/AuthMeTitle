@@ -1,6 +1,6 @@
 name: AuthMeTitle
 main: ru.ilyahiguti.authmetitle.AuthMeTitle
-version: 3.0.0
+version: 3.1.0
 
 softdepend: [AuthMe]
 

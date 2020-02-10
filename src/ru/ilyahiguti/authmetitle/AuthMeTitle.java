@@ -8,10 +8,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.spigotmc.SpigotConfig;
+import ru.ilyahiguti.authmetitle.listener.ChatCommandListener;
 import ru.ilyahiguti.authmetitle.listener.ExperienceListener;
 import ru.ilyahiguti.authmetitle.listener.JoinListener;
 import ru.ilyahiguti.authmetitle.listener.LogoutKickListener;
@@ -24,7 +23,7 @@ import ru.ilyahiguti.authmetitle.vanish.VanishManager;
 import java.io.File;
 import java.util.List;
 
-public class AuthMeTitle extends JavaPlugin implements Listener {
+public class AuthMeTitle extends JavaPlugin {
     private AuthMeApi authMeApi;
     private NMS nms;
 
@@ -71,7 +70,7 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
     }
 
     private void loadPlugin() {
-        HandlerList.unregisterAll((Plugin) this);
+        HandlerList.unregisterAll(this);
 
         reloadConfig();
         loadTitleConfigs();
@@ -87,10 +86,18 @@ public class AuthMeTitle extends JavaPlugin implements Listener {
         if (getConfig().getBoolean("Show_Timeout_In_Experience.Enabled")) {
             int timeout = Bukkit.getPluginManager().getPlugin("AuthMe").getConfig().getInt("settings.restrictions.timeout");
             if (timeout < 1) {
-                getLogger().warning("Timeout disconnection is disabled in AuthMe config.");
-                return;
+                getLogger().warning("Timeout disconnection is disabled in the AuthMe config.");
+            } else {
+                Bukkit.getPluginManager().registerEvents(new ExperienceListener(this, timeout, getConfig().getBoolean("Show_Timeout_In_Experience.Save_Previous_Data")), this);
             }
-            Bukkit.getPluginManager().registerEvents(new ExperienceListener(this, timeout, getConfig().getBoolean("Show_Timeout_In_Experience.Save_Previous_Data")), this);
+        }
+
+        if (getConfig().getBoolean("Chat_Auth.Enabled")) {
+            boolean isAllowedChat = Bukkit.getPluginManager().getPlugin("AuthMe").getConfig().getBoolean("settings.restrictions.allowChat");
+            if (!isAllowedChat) {
+                getLogger().warning("Set \"settings.restrictions.allowChat\" parameter to \"true\" in the Authme config.yml");
+            }
+            Bukkit.getPluginManager().registerEvents(new ChatCommandListener(this), this);
         }
     }
 
